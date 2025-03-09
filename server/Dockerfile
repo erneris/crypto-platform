@@ -1,13 +1,41 @@
-FROM  node:20.14.0-alpine3.20 as builder
+# FROM  node:20.14.0-alpine3.20 as builder
+
+# WORKDIR /app
+
+# COPY package*.json ./
+
+# RUN npm install
+
+# COPY . .
+
+# EXPOSE 3000
+
+# CMD [ "npm", "run", "prod" ]
+
+# Start from the updated base image
+FROM node:20.14.0-alpine3.20 AS builder
 
 WORKDIR /app
 
-COPY package*.json ./
+# Copy package.json files and install dependencies
+# On the server build we could prune the client dependencies
+# and after the build stage we could install only the non-dev
+# dependencies, though we will keep this simple.
+COPY ../package*.json .
+COPY client/package*.json client/
+COPY server/package*.json server/
+RUN npm ci
 
-RUN npm install
+# Copy over the server source code
+COPY server/ server/
 
-COPY . .
+# Build the server
+WORKDIR /app/server
+RUN npm run build
 
 EXPOSE 3000
 
-CMD [ "npm", "run", "prod" ]
+# Command Docker runs when it starts the container.
+# In our case, this command is specified in server/package.json
+# which does migrations and then starts the server.
+CMD ["npm", "run", "prod"]
