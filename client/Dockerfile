@@ -2,13 +2,14 @@ FROM node:20.14.0-alpine3.20 as builder
 
 WORKDIR /app
 
-COPY package*.json ./
-
-RUN npm install
+COPY ../package*.json .
+COPY client/package*.json client/
+COPY server/package*.json server/
+RUN npm ci
 
 COPY . .
 
-RUN npm run build
+WORKDIR /app/client
 
 FROM nginx:1.27.0-alpine3.19 as nginx
 
