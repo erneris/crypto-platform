@@ -1,5 +1,5 @@
 import './assets/main.css'
-import '../node_modules/flowbite/dist/flowbite.min.css'
+import '../../node_modules/flowbite/dist/flowbite.min.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'

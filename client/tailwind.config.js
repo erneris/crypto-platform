@@ -6,11 +6,11 @@ export default {
     'node_modules/flowbite-vue/**/*.{js,jsx,ts,tsx,vue}',
     'node_modules/flowbite/**/*.{js,jsx,ts,tsx}',
   ],
+  plugins: [require('flowbite/plugin')],
   theme: {
     fontFamily: {
       body: ['"Inter var"', '"Inter"', '"Open Sans"', 'Helvetica', 'Arial', 'sans-serif'],
       mono: ['"Fira Code"', 'monospace'],
     },
   },
-  plugins: [require('flowbite/plugin')],
 }
