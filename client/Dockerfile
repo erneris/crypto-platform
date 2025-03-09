@@ -12,11 +12,13 @@ RUN npm run build
 
 FROM nginx:1.27.0-alpine3.19 as nginx
 
-COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
-
 RUN rm /usr/share/nginx/html/* -rf
 
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/client/dist /usr/share/nginx/html
+
+ENV NGINX_ENVSUBST_OUTPUT_DIR '/etc/nginx/conf.d'
+
+COPY client/nginx/default.conf.template /etc/nginx/templates/default.conf.template
 
 EXPOSE 80
 
