@@ -4,7 +4,6 @@
   "include": ["**/*.ts", ".eslintrc.cjs", "vitest.config.js"],
 
   "compilerOptions": {
-    "strict": true,
     "paths": {
       "@server/*": ["./src/*"],
       "@tests/*": ["./tests/*"]
