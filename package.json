@@ -8,6 +8,7 @@
     "server"
   ],
   "dependencies": {
+    "vite": "^6.2.1",
     "vitest": "^3.0.6"
   }
 }
