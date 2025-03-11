@@ -27,6 +27,8 @@ COPY server/ server/
 
 WORKDIR /app/server
 
+RUN ls
+
 RUN npm run build
 
 EXPOSE 3000
