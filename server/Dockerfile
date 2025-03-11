@@ -9,7 +9,7 @@ RUN npm ci
 
 COPY server/ server/
 
-WORKDIR /app/server/dist
+WORKDIR /app/server/
 
 RUN npm run build
 
