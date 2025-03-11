@@ -32,7 +32,7 @@ export default publicProcedure
       });
     }
     const payload = prepareTokenPayload(user);
-    // @ts-expect-error
+    // @ts-ignore
     const accessToken = jsonwebtoken.sign(payload, tokenKey, { expiresIn });
 
     return { accessToken };

@@ -38,7 +38,7 @@ export default publicProcedure
       });
 
     const payload = { user: { id: userCreated.id } };
-    // @ts-expect-error
+    // @ts-ignore
     const token = jsonwebtoken.sign(payload, tokenKey, {
       expiresIn: expiresIn,
     });

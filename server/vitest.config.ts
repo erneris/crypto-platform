@@ -1,5 +1,6 @@
 import { URL, fileURLToPath } from 'node:url';
 import path from 'node:path';
+// @ts-ignore
 import { defineConfig, loadEnv } from 'vite';
 
 // https://vitejs.dev/config/
