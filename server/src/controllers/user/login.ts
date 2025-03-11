@@ -11,17 +11,8 @@ import { prepareTokenPayload } from '@server/trpc/tokenPayload';
 const { expiresIn, tokenKey } = config.auth;
 
 export default publicProcedure
-  .use(
-    provideRepos({
-      userRepository,
-    })
-  )
-  .input(
-    userSchema.pick({
-      email: true,
-      password: true,
-    })
-  )
+  .use(provideRepos({ userRepository }))
+  .input(userSchema.pick({ email: true, password: true }))
   .mutation(async ({ input: { email, password }, ctx: { repos } }) => {
     const user = await repos.userRepository.findByEmail(email);
 
@@ -41,12 +32,8 @@ export default publicProcedure
       });
     }
     const payload = prepareTokenPayload(user);
+    // @ts-expect-error
+    const accessToken = jsonwebtoken.sign(payload, tokenKey, { expiresIn });
 
-    const accessToken = jsonwebtoken.sign(payload, tokenKey, {
-      expiresIn,
-    });
-
-    return {
-      accessToken,
-    };
+    return { accessToken };
   });

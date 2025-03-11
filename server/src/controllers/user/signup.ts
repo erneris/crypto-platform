@@ -10,11 +10,7 @@ import jsonwebtoken from 'jsonwebtoken';
 const { expiresIn, tokenKey } = config.auth;
 
 export default publicProcedure
-  .use(
-    provideRepos({
-      userRepository,
-    })
-  )
+  .use(provideRepos({ userRepository }))
   .input(
     userSchema.pick({
       email: true,
@@ -27,10 +23,7 @@ export default publicProcedure
   .mutation(async ({ input: user, ctx: { repos } }) => {
     const passwordHash = await hash(user.password, config.auth.passwordCost);
     const userCreated = await repos.userRepository
-      .create({
-        ...user,
-        password: passwordHash,
-      })
+      .create({ ...user, password: passwordHash })
       .catch((error: unknown) => {
         assertError(error);
         if (error.message.includes('duplicate key')) {
@@ -44,15 +37,10 @@ export default publicProcedure
         throw error;
       });
 
-    const payload = {
-      user: { id: userCreated.id },
-    };
-
+    const payload = { user: { id: userCreated.id } };
+    // @ts-expect-error
     const token = jsonwebtoken.sign(payload, tokenKey, {
       expiresIn: expiresIn,
     });
-    return {
-      id: userCreated.id,
-      token,
-    };
+    return { id: userCreated.id, token };
   });

@@ -15,7 +15,6 @@
     "rootDir": "src",
     "outDir": "dist",
     "sourceMap": true,
-    
 
     "paths": {
       "@server/*": ["./src/*"],
