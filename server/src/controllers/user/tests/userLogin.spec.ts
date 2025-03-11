@@ -26,6 +26,7 @@ it('returns a token if the password matches', async () => {
 
   // jwt
   expect(accessToken).toEqual(expect.any(String));
+  // @ts-ignore
   expect(accessToken.slice(0, 3)).toEqual('eyJ');
 });
 
